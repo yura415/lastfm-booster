@@ -1,6 +1,6 @@
 {
   "name": "lastfm-booster",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Cheat yout last.fm scrobbles",
   "main": "index.js",
   "scripts": {
@@ -21,6 +21,7 @@
   "homepage": "https://github.com/yura415/lastfm-booster",
   "dependencies": {
     "async": "^0.8.0",
-    "lastfmapi": "0.0.5"
+    "lastfmapi": "0.0.5",
+    "optimist": "^0.6.1"
   }
 }

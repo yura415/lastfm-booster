@@ -1,6 +1,3 @@
-/**
- * Created by adm on 06.05.2014.
- */
 var api = require('lastfmapi')
     , express = require('express')
     , config = require('./config');
