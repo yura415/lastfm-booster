@@ -36,7 +36,7 @@ Scrobbles random strings
 * addToLibrary
 
 Find artists and add to library.
-Supported options is "tag".
+Supported options is "user".
 
 Examples
 ========
@@ -45,6 +45,6 @@ Scrobble random strings and disable logging
 
         lastfm-booster --method scrobbleRandom --nolog
         
-Search for artists with tag "post-rock" and add to library.
+Get users from user "TaggingMachine" and add it to your library. (TaggingMachine has 100k artists)
         
-        lastfm-booster --method addToLibrary --tag=post-rock
+        lastfm-booster --method addToLibrary --user=TaggingMachine

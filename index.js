@@ -27,7 +27,8 @@ if (method && validMethods.indexOf(method.trim() + '.js') >= 0) {
             console.log(method);
             lfm && method && method({
                 log: !argv.nolog,
-                tag: argv.tag
+                tag: argv.tag,
+                page: argv.page
             }, lfm);
         }
     }

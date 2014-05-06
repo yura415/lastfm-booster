@@ -1,22 +1,28 @@
 var async = require('async');
+var names = [];
+
 
 module.exports = function (params, lfm) {
     console.log(params);
-    var page = 1;
+    var page = params.page || 1;
     async.forever(
         function (next) {
-            page = page || 1;
-            lfm.tag.getTopArtists({
-                'tag': params.tag || 'under 2000 listeners',
+            lfm.library.getArtists({
+                'user': params.user || 'TaggingMachine',
                 'page': page
             }, function (err, topArtists) {
                 if (err)
                     next(err, null);
                 else {
                     async.every(topArtists.artist, function (artist, callback) {
+                        if (names.indexOf(artist.name) >= 0)
+                            console.log('sas! ', artist.name);
+                        else
+                            names.push(artist.name);
                         lfm.library.addArtist(artist.name, function (err) {
-                            if (err)
-                                console.log(err);
+                            if (err) {
+                                console.log(artist.name, err);
+                            }
                             else if (params.log)
                                 console.log(artist.name, 'was successfully added to library');
                             callback(err);
