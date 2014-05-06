@@ -1,0 +1,26 @@
+{
+  "name": "lastfm-booster",
+  "version": "0.0.0",
+  "description": "Cheat yout last.fm scrobbles",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yura415/lastfm-booster.git"
+  },
+  "keywords": [
+    "last.fm"
+  ],
+  "author": "Georgy Chirkov <mail@gich.co>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yura415/lastfm-booster/issues"
+  },
+  "homepage": "https://github.com/yura415/lastfm-booster",
+  "dependencies": {
+    "async": "^0.8.0",
+    "lastfmapi": "0.0.5"
+  }
+}
