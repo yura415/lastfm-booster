@@ -5,7 +5,7 @@ var api = require('lastfmapi')
 // Create a new instance
 var lfm = new api(config.lfm);
 
-var mySessionCreds = mySessionCreds.sessionCreds;
+var mySessionCreds = config.sessionCreds;
 
 lfm.setSessionCredentials(mySessionCreds.username, mySessionCreds.key);
 
@@ -19,7 +19,7 @@ async.forever(
 
             console.log('We have just scrobbled:', scrobbles);
 
-            next(err, scrobbles);
+            setTimeout(function(){ next(err, null) }, 450 + Math.floor(Math.random() * 100) + (Math.random() > .9 ? 1500 : 0));
         });
     },
     function (err) {
