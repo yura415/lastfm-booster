@@ -38,7 +38,9 @@ function wrongUsage() {
     console.log(
             "Wrong usage.\n" +
             "Correct is:\n\tlastfm-booster %method%\n" +
-            "Valid %method%'s are:\n\taddTag\n\tscrobbleRandom\n" +
-            "Details on https://github.com/yura415/lastfm-booster"
-    );
+            "Valid %method%'s are:\n\t" + validMethods.map(function (x) {
+                return x.substring(0, x.length - 3)
+            }).join("\n\t") +
+                "\nDetails on https://github.com/yura415/lastfm-booster"
+        );
 }
