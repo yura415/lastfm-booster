@@ -4,14 +4,16 @@ var api = require('lastfmapi')
     , path = require('path')
     , fs = require('fs');
 
-// Create a new instance
-
 var method = argv.method,
-    validMethods = fs.readdirSync(path.join(__dirname, 'methods'));
+    validMethods = fs.readdirSync(path.join(__dirname, 'methods')),
+    methodPath = path.join(__dirname, path.join('methods', method));
 
+if (!config || !config.sessionCreds || !config.lfm) {
+    return console.log('edit config.js file, more information on github.')
+}
 if (method && validMethods.indexOf(method.trim() + '.js') >= 0) {
     try {
-        method = require(path.join(__dirname, path.join('methods', method)));
+        method = require(methodPath);
     } catch (e) {
         console.log(e);
         return wrongUsage()
@@ -24,7 +26,6 @@ if (method && validMethods.indexOf(method.trim() + '.js') >= 0) {
         } catch (e) {
             console.log("Last.fm initialization error, check your config.js.", e);
         } finally {
-            console.log(method);
             lfm && method && method({
                 log: !argv.nolog,
                 tag: argv.tag,
@@ -38,10 +39,10 @@ else return wrongUsage();
 function wrongUsage() {
     console.log(
             "Wrong usage.\n" +
-            "Correct is:\n\tlastfm-booster %method%\n" +
+            "Correct is:\n\tlastfm-booster --method METHOD [OPTIONS]\n" +
             "Valid %method%'s are:\n\t" + validMethods.map(function (x) {
-                return x.substring(0, x.length - 3)
-            }).join("\n\t") +
-                "\nDetails on https://github.com/yura415/lastfm-booster"
-        );
+            return x.substring(0, x.length - 3)
+        }).join("\n\t") +
+            "\nDetails on https://github.com/yura415/lastfm-booster"
+    );
 }
