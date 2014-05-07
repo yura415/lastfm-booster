@@ -1,21 +1,22 @@
-var async = require('async')
-    , fs = require('fs')
-    , path = require('path');
-var names = [],
-    pageFile = path.join(__dirname, "/../.lastpage");
-
-function _t(f, t) {
-    return setTimeout(f, t);
-}
-
 module.exports = function (params, lfm) {
+    'use strict';
+    var async = require('async')
+        , fs = require('fs')
+        , path = require('path');
+
+    var page
+        , pageFile = path.join(__dirname, "/../.lastpage");
+
+    function _t(f, t) {
+        return setTimeout(f, t);
+    }
     var pageFromFile;
     try {
         pageFromFile = fs.readFileSync(pageFile);
-    } catch(e){
+    } catch (e) {
         fs.writeFileSync(pageFile, params.page || 1);
     }
-    var page = params.page || pageFromFile || 1;
+    page = params.page || pageFromFile || 1;
     try {
         async.forever(
             function (next) {
@@ -27,10 +28,6 @@ module.exports = function (params, lfm) {
                         next(err, null);
                     else {
                         async.every(topArtists.artist, function (artist, callback) {
-                            if (names.indexOf(artist.name) >= 0)
-                                console.log('sas! ', artist.name);
-                            else
-                                names.push(artist.name);
                             lfm.library.addArtist(artist.name, function (err) {
                                 if (err) {
                                     console.log(artist.name, err);
@@ -43,6 +40,7 @@ module.exports = function (params, lfm) {
                             });
                         }, function (result) {
                             page++;
+                            params.log && console.log("\n\n\tWe are on page " + page + " now.\n\n");
                             _t(function () {
                                 next(err, null)
                             }, 450 + Math.floor(Math.random() * 100) + (Math.random() > .9 ? 1500 : 0));
@@ -60,13 +58,13 @@ module.exports = function (params, lfm) {
         savePage() ? console.log("page saved") : console.log("page not saved, neh");
         return console.log("ended abnormally, saving page to file. to prevent program from loading last page, just specify --page to 1")
     }
+
+    process.on('exit', function (code) {
+        savePage() ? console.log("page saved") : console.log("page not saved, neh");
+        console.log("to prevent program from loading last page, just specify --page to 1")
+    });
+
+    function savePage() {
+        return fs.writeFileSync(pageFile, page, null);
+    }
 };
-
-process.on('exit', function (code) {
-    savePage() ? console.log("page saved") : console.log("page not saved, neh");
-    console.log("to prevent program from loading last page, just specify --page to 1")
-});
-
-function savePage() {
-    return fs.writeFileSync(pageFile, page, null);
-}
