@@ -31,7 +31,8 @@ if (method && validMethods.indexOf(method.trim() + '.js') >= 0) {
             lfm && method && method({
                 log: !argv.nolog,
                 tag: argv.tag,
-                page: argv.page
+                page: argv.page,
+                user: argv.user
             }, lfm);
         }
     }
