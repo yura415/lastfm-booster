@@ -10,6 +10,7 @@ module.exports = function (params, lfm) {
     function _t(f, t) {
         return setTimeout(f, t);
     }
+
     var pageFromFile;
     try {
         pageFromFile = fs.readFileSync(pageFile);
@@ -55,16 +56,21 @@ module.exports = function (params, lfm) {
             }
         );
     } catch (e) {
-        savePage() ? console.log("page saved") : console.log("page not saved, neh");
+        savePage();
         return console.log("ended abnormally, saving page to file. to prevent program from loading last page, just specify --page to 1")
     }
 
     process.on('exit', function (code) {
-        savePage() ? console.log("page saved") : console.log("page not saved, neh");
+        savePage();
         console.log("to prevent program from loading last page, just specify --page to 1")
     });
 
     function savePage() {
-        return fs.writeFileSync(pageFile, page, null);
+        try {
+            fs.writeFileSync(pageFile, page, null);
+        } catch (e) {
+            return console.log("page not saved, neh");
+        }
+        console.log("page saved");
     }
 };
