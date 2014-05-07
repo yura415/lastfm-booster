@@ -17,7 +17,7 @@ Installation
     
         git clone https://github.com/yura415/lastfm-booster
         
-3. Get your app id and secret for last.fm
+3. Get your app id and secret from last.fm at http://www.lastfm.ru/api/account/create
 4. Create file config.json in lastfm-booster installation path
 5. Run auth.js script and edit config.json
 6. Run lastfm-booster
@@ -32,7 +32,7 @@ Run
 
         lastfm-booster --method auth
 
-, it will start express server, that will listens on port 3000.
+, it will start http server, that will listens on port 3000.
 
 
 Aviable methods
