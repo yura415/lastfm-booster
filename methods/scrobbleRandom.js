@@ -1,6 +1,6 @@
-var async = require('async');
-
 module.exports = function (params,lfm ) {
+    'use strict';
+    var async = require('async');
     async.forever(
         function (next) {
             var artist = Math.random().toString(36).substring(7)
