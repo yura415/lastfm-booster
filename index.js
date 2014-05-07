@@ -1,14 +1,16 @@
-var api = require('lastfmapi')
-    , config = require('./config')
+'use strict';
+var path = require('path')
     , argv = require('optimist').argv
-    , path = require('path')
     , fs = require('fs');
+
+var api = require('lastfmapi')
+    , config = require(path.join(__dirname, 'config.json'));
 
 var method = argv.method,
     validMethods = fs.readdirSync(path.join(__dirname, 'methods')),
     methodPath = path.join(__dirname, path.join('methods', method));
 
-if (!config || !config.sessionCreds || !config.lfm) {
+if (!config || !config.lfm) {
     return console.log('edit config.js file, more information on github.')
 }
 if (method && validMethods.indexOf(method.trim() + '.js') >= 0) {
@@ -22,7 +24,7 @@ if (method && validMethods.indexOf(method.trim() + '.js') >= 0) {
         try {
             lfm = new api(config.lfm);
             var mySessionCreds = config.sessionCreds;
-            lfm.setSessionCredentials(mySessionCreds.username, mySessionCreds.key);
+            mySessionCreds && lfm.setSessionCredentials(mySessionCreds.username, mySessionCreds.key);
         } catch (e) {
             console.log("Last.fm initialization error, check your config.js.", e);
         } finally {
