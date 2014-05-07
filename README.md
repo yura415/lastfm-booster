@@ -25,6 +25,16 @@ Installation
         lastfm-booster --method METHOD [OPTIONS]
         
 
+Getting authorized
+==================
+
+Run
+
+        astfm-booster --method auth
+
+, it will start express server, that will listens on port 3000.
+
+
 Aviable methods
 ===============
 
