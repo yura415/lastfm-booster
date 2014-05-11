@@ -10,11 +10,8 @@ Installation
 
         https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager
         
-2. Install lastfm-booster via NPM or clone repository instead
+2. Clone this git repository
 
-        npm install lastfm-booster
-    or
-    
         git clone https://github.com/yura415/lastfm-booster
         
 3. Get your app id and secret from last.fm at http://www.lastfm.ru/api/account/create
@@ -22,7 +19,8 @@ Installation
 5. Run auth.js script and edit config.json
 6. Run lastfm-booster
 
-        lastfm-booster --method METHOD [OPTIONS]
+        cd lastfm-booster
+        node index.js --method METHOD [OPTIONS]
         
 
 Getting authorized
@@ -30,7 +28,7 @@ Getting authorized
 
 Run
 
-        lastfm-booster --method auth
+        node index.js --method auth
 
 , it will start http server, that will listens on port 3000.
 
@@ -53,8 +51,8 @@ Examples
 
 Scrobble random strings and disable logging
 
-        lastfm-booster --method scrobbleRandom --nolog
+        node index.js --method scrobbleRandom --nolog
         
 Get users from user "TaggingMachine" and add it to your library. (TaggingMachine has 100k artists)
         
-        lastfm-booster --method addToLibrary --user=TaggingMachine
+        node index.js --method addToLibrary --user=TaggingMachine
