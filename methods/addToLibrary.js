@@ -1,5 +1,6 @@
 module.exports = function (params, lfm) {
     'use strict';
+    var delayMultiplier = parseFloat(params.delayMultiplier) || 1.0;
     var async = require('async')
         , fs = require('fs')
         , path = require('path');
@@ -37,14 +38,14 @@ module.exports = function (params, lfm) {
                                     console.log(artist.name, 'was successfully added to library');
                                 _t(function () {
                                     callback(err)
-                                }, 300);
+                                }, 300*delayMultiplier);
                             });
                         }, function (result) {
                             page++;
                             params.log && console.log("\n\n\tWe are on page " + page + " now.\n\n");
                             _t(function () {
                                 next(err, null)
-                            }, 450 + Math.floor(Math.random() * 100) + (Math.random() > .9 ? 1500 : 0));
+                            }, 450*delayMultiplier + Math.floor(Math.random() * 100) + (Math.random() > .9 ? 1500 : 0));
                         });
                     }
                 });
