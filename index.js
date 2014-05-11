@@ -6,14 +6,19 @@ var path = require('path')
 var api = require('lastfmapi')
     , config = require(path.join(__dirname, 'config.json'));
 
-var method = argv.method,
-    validMethods = fs.readdirSync(path.join(__dirname, 'methods')),
-    methodPath = path.join(__dirname, path.join('methods', method));
-
 if (!config || !config.lfm) {
     return console.log('edit config.js file, more information on github.')
 }
-if (method && validMethods.indexOf(method.trim() + '.js') >= 0) {
+
+var method = argv.method;
+
+if (!method)
+    return wrongUsage();
+
+var validMethods = fs.readdirSync(path.join(__dirname, 'methods')),
+    methodPath = path.join(__dirname, path.join('methods', method));
+
+if (validMethods.indexOf(method.trim() + '.js') >= 0) {
     try {
         method = require(methodPath);
     } catch (e) {
@@ -32,17 +37,17 @@ if (method && validMethods.indexOf(method.trim() + '.js') >= 0) {
                 log: !argv.nolog,
                 tag: argv.tag,
                 page: argv.page,
-                user: argv.user
+                user: argv.user,
+                delayMultiplier: argv.dm
             }, lfm);
         }
     }
 }
-else return wrongUsage();
 
 function wrongUsage() {
     console.log(
             "Wrong usage.\n" +
-            "Correct is:\n\tlastfm-booster --method METHOD [OPTIONS]\n" +
+            "Correct is:\n\t --method METHOD [OPTIONS]\n" +
             "Valid %method%'s are:\n\t" + validMethods.map(function (x) {
             return x.substring(0, x.length - 3)
         }).join("\n\t") +
